@@ -3,13 +3,12 @@ package com.study.boardweb;
 public class Post {
     private static int num = 0;
     private int id = ++num;
-
     private String title;
     private String contents;
 
     public Post() {
-        this.title = "sample title";
-        this.contents = "sample contents";
+        this.title = "sample title" + num;
+        this.contents = "sample contents" + num;
     }
 
     public Post(String title, String contents) {
@@ -17,15 +16,13 @@ public class Post {
         this.contents = contents;
     }
 
-    public static int getNum() {
-        return num;
+    public int getId() {
+        return id;
     }
 
-    public static void setNum(int num) {
-        Post.num = num;
+    public void setId(int id) {
+        this.id = id;
     }
-
-
     public String getTitle() {
         return title;
     }
