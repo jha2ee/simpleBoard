@@ -1,27 +1,24 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form } from "react-bootstrap";
+
 import NavBar from "../components/NavBar";
+import axios from "axios";
 function Page() {
-  const [show, setShow] = useState(false);
+  const [hello, setHello] = useState("");
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/hello") //api 호출
+      .then((response) => setHello(response.data))
+      .catch((error) => console.log(error));
+  }, []);
   return (
     <>
       <NavBar />
-      <Form>
-        <Form.Group className="mb-3" controlId="formGroupEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formGroupPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
-        </Form.Group>
-      </Form>
+      <div>
+        <p>환영합니다! 이곳은 게시판입니다.</p>
+        <div>백엔드에서 가져온 데이터입니다 : {hello}</div>
+      </div>
     </>
   );
 }
