@@ -8,7 +8,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import NavBar from "./components/NavBar";
-
+import Footer from "./components/footer";
 
 import Board from "./pages/Board";
 import Home from "./pages/Home";
@@ -30,6 +30,7 @@ function App() {
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
+      <Footer/>
     </Router>
   );
 }
