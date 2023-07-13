@@ -1,43 +1,45 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form } from "react-bootstrap";
-import NavBar from "../components/NavBar";
+
+import Tab from "../components/Tabs";
 
 type Post = {
-  id : number,
-  title : String
-}
+  id: number;
+  title: String;
+  contents: String;
+};
 function Page() {
-  const [show, setShow] = useState<Post>({
-    id:1,
-    title:'s1'
-  }
-  );
+  const [shows, setShows] = useState<Post[]>([
+    {
+      id: 1,
+      title: "s1",
+      contents: "test",
+    },
+  ]);
 
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/getBoard") //api 호출
-      .then((response) => setShow(response.data))
+      .then((response) => {
+        setShows(response.data);
+      })
       .catch((error) => console.log(error));
   }, []);
-  const [posts, setPosts] = useState([
-    { id: 1, title: '첫 번째 게시물' },
-    { id: 2, title: '두 번째 게시물' },
-    { id: 3, title: '세 번째 게시물' }
-  ]);
+
   return (
     <>
-      <NavBar />
+      <Tab />
       <div>
-      <h2>게시판 목록</h2>
-      <ul>
-        {posts.map(post => (
-          <li key={post.id}>{post.title}</li>
+        <h3>게시판 목록</h3>
+        백엔드 연결 결과 -
+        {shows.map((post) => (
+          <div key={post.id}>
+            <h5>{post.title}</h5>
+            <p>{post.contents}</p>
+          </div>
         ))}
-      </ul>
-      <p>백엔드 연결 결과 : {show.id} : {show.title} </p>
-    </div>
+      </div>
     </>
   );
 }

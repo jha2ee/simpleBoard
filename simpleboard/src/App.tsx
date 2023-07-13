@@ -1,33 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import NavBar from "./components/NavBar";
-import axios from "axios";
+
 
 import Board from "./pages/Board";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
+import Setting from "./pages/Setting";
+import QnA from "./pages/QnA";
 
 function App() {
-  const [hello, setHello] = useState("");
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/hello") //api 호출
-      .then((response) => setHello(response.data))
-      .catch((error) => console.log(error));
-  }, []);
 
   return (
-    <>
-      <Router>
-        <Routes>
-          <Route path="/home" Component={Home} />
-          <Route path="/board" Component={Board} />
-        </Routes>
-      </Router>
-    </>
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/board" element={<Board />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/profile/setting" element={<Setting />} />
+        <Route path="/profile/qna" element={<QnA />} />
+        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="*" element={<Navigate to="/home" replace />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+
