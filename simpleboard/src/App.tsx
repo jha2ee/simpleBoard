@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./components/NavBar";
-import axios from 'axios';
+import axios from "axios";
+
+import Board from "./pages/Board";
+import Home from "./pages/Home";
+import SignUp from "./pages/SignUp";
 
 function App() {
-  const [hello, setHello] = useState('')
+  const [hello, setHello] = useState("");
 
   useEffect(() => {
-      axios.get('http://localhost:8080/api/hello')
-      .then(response => setHello(response.data))
-      .catch(error => console.log(error))
+    axios
+      .get("http://localhost:8080/api/hello") //api 호출
+      .then((response) => setHello(response.data))
+      .catch((error) => console.log(error));
   }, []);
-
 
   return (
     <>
-      <NavBar />
-      <div>
-      
-      <p>환영합니다! 이곳은 게시판입니다.</p>
-      <div>
-          백엔드에서 가져온 데이터입니다 : {hello}
-      </div>
-    </div>
+      <Router>
+        <Routes>
+          <Route path="/home" Component={Home} />
+          <Route path="/board" Component={Board} />
+        </Routes>
+      </Router>
     </>
   );
-  
 }
 
 export default App;

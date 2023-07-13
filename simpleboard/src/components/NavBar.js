@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import {  Nav, Navbar, Container, Offcanvas, NavDropdown  } from "react-bootstrap";
+
+import Home from "../pages/Home";
+
 function NavBar() {
   const [show, setShow] = useState(false);
 
@@ -15,7 +18,7 @@ function NavBar() {
         <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
           <Container>
           
-            <Navbar.Brand href="#">SIMPLEBOARD</Navbar.Brand>
+            <Navbar.Brand href="/">SIMPLEBOARD</Navbar.Brand>
             <Navbar.Toggle  />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
@@ -29,18 +32,18 @@ function NavBar() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="#action1">Home</Nav.Link>
-                  <Nav.Link href="#action2">Board</Nav.Link>
+                  <Nav.Link href="home">Home</Nav.Link>
+                  <Nav.Link href="board">Board</Nav.Link>
                   <NavDropdown
-                    title="Setting"
+                    title="Profile"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
-                    <NavDropdown.Item href="#action3">Profile</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
+                    <NavDropdown.Item href="profile/setting">Settings</NavDropdown.Item>
+                    <NavDropdown.Item href="profile/qna">
                       Q&A
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
+                    <NavDropdown.Item href="profile/logout">
                       Logout
                     </NavDropdown.Item>
                   </NavDropdown>
