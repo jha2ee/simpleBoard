@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/file.css";
 
 import TabComponent from "../components/TabComponent";
+import BoardItem from "../components/BoardItem"; 
 import { BoardModal, AddPostModal } from "../components/BoardModal";
 import { Button, Container, Row, Col, Card } from "react-bootstrap";
 
@@ -13,24 +14,6 @@ type Post = {
   contents: string;
 };
 
-const BoardItem = (props: { post: Post; openModal: Function }) => {
-  const handleClick = () => {
-    props.openModal(props.post);
-    console.log("clicked");
-  };
-
-  return (
-    <Card key={props.post.id} className="mb-3" onClick={handleClick}>
-      <Card.Body>
-        <Card.Title>{props.post.title}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">
-          작성자: 임시로
-        </Card.Subtitle>
-        <Card.Text>{props.post.contents}</Card.Text>
-      </Card.Body>
-    </Card>
-  );
-};
 
 function Page() {
   const [shows, setShows] = useState<Post[]>([

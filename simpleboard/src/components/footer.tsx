@@ -1,13 +1,19 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { ReactComponent as FacebookIcon } from "../assets/images/facebook-icon.svg";
-import { ReactComponent as TwitterIcon } from "../assets/images/twitter-icon.svg";
 import { ReactComponent as YoutubeIcon } from "../assets/images/youtube-icon.svg";
 import { ReactComponent as LoveIcon } from "../assets/images/love-illustration.svg";
+import "../styles/file.css";
 
 const component = () => {
   return (
-    <div className="bg-gray-200">
+    <div
+      className="bg-gray-200"
+      style={{
+        backgroundImage: `url("../assets/bg1.jpg")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <Container className="-mx-8 -mb-8 px-8">
         <Row className="py-20 lg:py-20">
           <Col md={4} className="text-center md:text-left mb-10 md:mb-0">
@@ -22,7 +28,7 @@ const component = () => {
 
               <a
                 href="https://youtube.com"
-                className="cursor-pointer inline-block p-2 rounded-full bg-gray-700 text-gray-100 hover:bg-gray-900 transition duration-300"
+                className="cursor-pointer inline-block p-2 rounded-full bg-gray-700 text-gray-100 hover:bg-gray-900 transition duration-300 link-no-underline"
               >
                 <YoutubeIcon
                   className="w-2 h-2"
@@ -37,7 +43,7 @@ const component = () => {
               <li className="mt-3">
                 <a
                   href="#"
-                  className="border-b-2 border-transparent hocus:text-primary-500 hocus:border-primary-500 pb-1 transition duration-300"
+                  className="border-b-2 border-transparent hocus:text-primary-500 hocus:border-primary-500 pb-1 transition duration-300 link-no-underline"
                 >
                   Blog
                 </a>
@@ -45,7 +51,7 @@ const component = () => {
               <li className="mt-3">
                 <a
                   href="#"
-                  className="border-b-2 border-transparent hocus:text-primary-500 hocus:border-primary-500 pb-1 transition duration-300"
+                  className="border-b-2 border-transparent hocus:text-primary-500 hocus:border-primary-500 pb-1 transition duration-300 link-no-underline"
                 >
                   FAQs
                 </a>

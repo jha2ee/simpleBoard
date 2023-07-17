@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/file.css";
 import axios from "axios";
 
-import landingImage from "../assets/sample.jpg";
+import landingImage from "../assets/bg1.jpg";
 
 function LandingPage() {
   return (
