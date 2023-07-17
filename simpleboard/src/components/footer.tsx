@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { ReactComponent as YoutubeIcon } from "../assets/images/youtube-icon.svg";
 import { ReactComponent as LoveIcon } from "../assets/images/love-illustration.svg";

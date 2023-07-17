@@ -9,7 +9,7 @@ import { BoardModal, AddPostModal } from "../components/BoardModal";
 import { Button, Container, Row, Col, Card } from "react-bootstrap";
 
 type Post = {
-  id: number;
+  id: string;
   title: string;
   author: string;
   contents: string;
@@ -65,18 +65,20 @@ function Page() {
     setMyPosts(filteredPosts);
   }, [posts]);
 
+  /* 게시글 업로드 */
   function addPost(newPost: Post): void {
     axios
       .post("http://localhost:8080/api/setPost", newPost)
       .then((response) => {
         // 추가된 게시글을 서버에서 받아온다면 shows 상태를 업데이트하도록 추가 작업 가능
         console.log("게시글 추가 성공:", response.data);
+        setPosts((prevPosts) => [...prevPosts, newPost]);
       })
       .catch((error) => {
         console.log("게시글 추가 실패:", error);
       });
     // 추가한 게시글을 포함하여 업데이트된 게시글 목록을 설정
-    setPosts((posts) => [...posts, newPost]);
+    //setPosts((posts) => [...posts, newPost]);
     closeAddPostModal();
   }
 

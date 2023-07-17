@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
-type Post = {
-  id: number;
-  title: string;
-  author: string;
-  contents: string;
-};
+import { Modal, Button, Form, Card } from "react-bootstrap";
+import { v4 as uuidv4 } from "uuid";
+import { Post } from "../types";
 
 type AddPostModalProps = {
   showModal: boolean;
@@ -19,12 +15,19 @@ const AddPostModal: React.FC<AddPostModalProps> = ({
   addPost,
 }) => {
   const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("작성자");
   const [contents, setContents] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    //addPost(title, contents);
+    
+    const newPost: Post = {
+      id: uuidv4(),
+      title,
+      author,
+      contents
+    }
+    addPost(newPost);
     closeModal();
   };
 
@@ -63,13 +66,16 @@ const AddPostModal: React.FC<AddPostModalProps> = ({
 
 const BoardModal = ({ post, showModal, closeModal }: any) => {
   return (
-    <Modal show={showModal} onHide={closeModal}>
+    <Modal show={showModal} onHide={closeModal} size="lg">
       <Modal.Header closeButton>
         <Modal.Title>{post.title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>{post.author}</p>
-        <p>{post.contents}</p>
+        <Card.Text className="mb-2 text-muted">글쓴이: {post.author}</Card.Text>
+        <Card.Text className="mb-2 text-muted">
+          글쓴 시간: {post.created_at}
+        </Card.Text>
+        <Card.Text>{post.contents}</Card.Text>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={closeModal}>

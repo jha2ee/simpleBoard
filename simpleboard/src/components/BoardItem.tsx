@@ -1,12 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-
-type Post = {
-  id: number;
-  title: string;
-  contents: string;
-  author : string;
-};
+import { Post } from "../types";
 
 type BoardItemProps = {
   post: Post;
