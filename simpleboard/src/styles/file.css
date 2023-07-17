@@ -21,3 +21,7 @@
   font-size: 15px;
   margin-bottom: 20px;
 }
+
+.link-no-underline {
+  text-decoration: none;
+}

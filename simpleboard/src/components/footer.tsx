@@ -7,13 +7,7 @@ import "../styles/file.css";
 const component = () => {
   return (
     <div
-      className="bg-gray-200"
-      style={{
-        backgroundImage: `url("../assets/bg1.jpg")`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
+      className="bg-gray-200">
       <Container className="-mx-8 -mb-8 px-8">
         <Row className="py-20 lg:py-20">
           <Col md={4} className="text-center md:text-left mb-10 md:mb-0">

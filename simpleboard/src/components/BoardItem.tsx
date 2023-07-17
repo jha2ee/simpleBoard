@@ -5,6 +5,7 @@ type Post = {
   id: number;
   title: string;
   contents: string;
+  author : string;
 };
 
 type BoardItemProps = {
@@ -15,14 +16,13 @@ type BoardItemProps = {
 const BoardItem: React.FC<BoardItemProps> = ({ post, openModal }) => {
   const handleClick = () => {
     openModal(post);
-    console.log("clicked");
   };
 
   return (
     <Card key={post.id} className="mb-3" onClick={handleClick}>
       <Card.Body>
         <Card.Title>{post.title}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">작성자: 임시로</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted">{post.author}</Card.Subtitle>
         <Card.Text>{post.contents}</Card.Text>
       </Card.Body>
     </Card>

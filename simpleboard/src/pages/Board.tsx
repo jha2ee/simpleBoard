@@ -4,25 +4,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/file.css";
 
 import TabComponent from "../components/TabComponent";
-import BoardItem from "../components/BoardItem"; 
+import BoardItem from "../components/BoardItem";
 import { BoardModal, AddPostModal } from "../components/BoardModal";
 import { Button, Container, Row, Col, Card } from "react-bootstrap";
 
 type Post = {
   id: number;
   title: string;
+  author: string;
   contents: string;
 };
 
-
 function Page() {
-  const [shows, setShows] = useState<Post[]>([
-    {
-      id: 1,
-      title: "s1",
-      contents: "test",
-    },
-  ]);
+  const [posts, setPosts] = useState<Post[]>([]);
+
   /* Tab 상태 관리 */
   const [activeTab, setActiveTab] = useState("home");
   const handleTabSelect = (key: string) => {
@@ -59,17 +54,18 @@ function Page() {
     axios
       .get("http://localhost:8080/api/getBoard") //api 호출
       .then((response) => {
-        setShows(response.data);
+        setPosts(response.data);
       })
       .catch((error) => console.log(error));
   }, []);
 
-  function addPost(title: string, contents: string): void {
-    const newPost = {
-      title: title,
-      contents: contents,
-    };
+  const [myPosts, setMyPosts] = useState<Post[]>([]);
+  useEffect(() => {
+    const filteredPosts = posts.filter((post) => post.author === "me");
+    setMyPosts(filteredPosts);
+  }, [posts]);
 
+  function addPost(newPost: Post): void {
     axios
       .post("http://localhost:8080/api/setPost", newPost)
       .then((response) => {
@@ -79,8 +75,10 @@ function Page() {
       .catch((error) => {
         console.log("게시글 추가 실패:", error);
       });
-      closeAddPostModal();
-  };
+    // 추가한 게시글을 포함하여 업데이트된 게시글 목록을 설정
+    setPosts((posts) => [...posts, newPost]);
+    closeAddPostModal();
+  }
 
   return (
     <>
@@ -97,12 +95,14 @@ function Page() {
                 xs={4}
                 className="d-flex justify-content-end align-items-center"
               >
-                <Button variant="primary" onClick={openAddPostModal}>게시글 작성</Button>
+                <Button variant="primary" onClick={openAddPostModal}>
+                  게시글 작성
+                </Button>
               </Col>
             </Row>
             <Row style={{ marginTop: 10 }}>
               <Col>
-                {shows.map((show) => (
+                {posts.map((show) => (
                   <BoardItem post={show} key={show.id} openModal={openModal} />
                 ))}
                 {selectedPost && (
@@ -126,8 +126,22 @@ function Page() {
 
         {activeTab === "mypage" && (
           <Container>
-            <h6>My Page</h6>
-            <p>Tab content for My Page</p>
+            <h4 style={{ marginBottom: 10 }}>내 글 목록</h4>
+            <p>내가 쓴 글만 보입니다.</p>
+            <Row style={{ marginTop: 10 }}>
+              <Col>
+                {myPosts.map((post) => (
+                  <BoardItem post={post} key={post.id} openModal={openModal} />
+                ))}
+              </Col>
+              {selectedPost && (
+                <BoardModal
+                  post={selectedPost}
+                  showModal={showModal}
+                  closeModal={closeModal}
+                />
+              )}
+            </Row>
           </Container>
         )}
       </Container>

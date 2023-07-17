@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+type Post = {
+  id: number;
+  title: string;
+  author: string;
+  contents: string;
+};
 
 type AddPostModalProps = {
   showModal: boolean;
   closeModal: () => void;
-  addPost: (title: string, contents: string) => void;
+  addPost: (newPost: Post) => void;
 };
 
 const AddPostModal: React.FC<AddPostModalProps> = ({
@@ -17,7 +23,8 @@ const AddPostModal: React.FC<AddPostModalProps> = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addPost(title, contents);
+
+    //addPost(title, contents);
     closeModal();
   };
 
@@ -61,6 +68,7 @@ const BoardModal = ({ post, showModal, closeModal }: any) => {
         <Modal.Title>{post.title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <p>{post.author}</p>
         <p>{post.contents}</p>
       </Modal.Body>
       <Modal.Footer>
