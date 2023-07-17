@@ -1,4 +1,3 @@
-
 import {
   BrowserRouter as Router,
   Route,
@@ -8,7 +7,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import NavBar from "./components/NavBar";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 
 import Board from "./pages/Board";
 import Home from "./pages/Home";
@@ -17,7 +16,6 @@ import Setting from "./pages/Setting";
 import QnA from "./pages/QnA";
 
 function App() {
-
   return (
     <Router>
       <NavBar />
@@ -30,10 +28,9 @@ function App() {
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </Router>
   );
 }
 
 export default App;
-

@@ -1,17 +1,23 @@
+
 .landing-container {
-    text-align: center;
-  }
-  
-  .landing-container h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
-  .landing-container img {
-    max-width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  .landing-container p {
-    font-size: 18px;
-  }
+  text-align: center;
+}
+
+.landing-container h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.landing-container img {
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.landing-container p {
+  font-size: 18px;
+}
+
+.landing-content h1{
+  font-size: 15px;
+  margin-bottom: 20px;
+}
