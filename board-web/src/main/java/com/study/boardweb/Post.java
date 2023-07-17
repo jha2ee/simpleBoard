@@ -1,22 +1,34 @@
 package com.study.boardweb;
 
 public class Post {
-    private static int num = 0;
-    private int id = ++num;
+    private static long num = 0L;
+    private long id = ++num;
     private String title;
     private String contents;
+    private String author;
 
-    public Post() {
-        this.title = "sample title" + num;
-        this.contents = "sample contents" + num;
+    public String getAuthor() {
+        return author;
     }
 
-    public Post(String title, String contents) {
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+
+    private Post() {
+        this.title = "sample title" + id;
+        this.contents = "sample contents" + id;
+        this.author = "sample author";
+    }
+
+    public Post(String title, String contents, String author) {
         this.title = title;
         this.contents = contents;
+        this.author = author;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
