@@ -13,13 +13,12 @@ public class MemoryPostRepository implements PostRepository {
 
     @Override
     public Post save(Post post) {
-        post.setId((int) ++sequence);
-        store.put((long) post.getId(), post);
+        store.put(Integer.valueOf(post.getId()) + ++sequence, post);
         return post;
     }
 
     @Override
-    public Optional<Post> findById(Long id) {
+    public Optional<Post> findById(String id) {
         return Optional.ofNullable(store.get(id));
     }
 

@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -62,10 +64,13 @@ public class PostController {
 
     @ResponseBody
     @PostMapping("/api/setPost")
-    public String setBoard(@RequestParam long timestamp) throws JSONException {
-        Post post = new Post("새 게시글", "test content\n" + timestamp, "작성자 ");
-        postService.join(post);
-        /* db save in here */
-        return "redirect:/";
+    public String  setBoard(@RequestBody Post newPost) {
+        try {
+            postService.create(newPost); // 게시글 생성 또는 저장 로직을 포함하는 서비스 메서드 호출
+            return "redirect:/";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/";
+        }
     }
 }

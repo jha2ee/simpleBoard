@@ -9,17 +9,17 @@ import java.util.Optional;
 
 @Service
 public class PostService {
-    private  final PostRepository postRepository;
+    private final PostRepository postRepository;
 
     public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
     /* 게시글 등록 */
-    public Long join(Post post) {
+    public String create(Post post) {
         //validateDuplicatePost(post);
         postRepository.save(post);
-        return (long) post.getId();
+        return post.getId();
     }
 
     private void validateDuplicatePost(Post post) {

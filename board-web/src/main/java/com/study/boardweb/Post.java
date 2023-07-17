@@ -2,7 +2,7 @@ package com.study.boardweb;
 
 public class Post {
     private static long num = 0L;
-    private long id = ++num;
+    private String id;
     private String title;
     private String contents;
     private String author;
@@ -17,22 +17,24 @@ public class Post {
 
 
     private Post() {
+        this.id= "";
         this.title = "sample title" + id;
         this.contents = "sample contents" + id;
         this.author = "sample author";
     }
 
     public Post(String title, String contents, String author) {
+        this.id= "";
         this.title = title;
         this.contents = contents;
         this.author = author;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public String getTitle() {
