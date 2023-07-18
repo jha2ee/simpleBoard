@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { ReactComponent as LoveIcon } from "../assets/images/love-illustration.svg";
 
 type LoginPageProps = {};
 
@@ -24,8 +25,11 @@ const LoginPage: React.FC<LoginPageProps> = () => {
   };
 
   return (
-    <Container className="mt-5" style={{marginBottom:20}}>
+    <Container className="mt-5" style={{ marginBottom: 50 }}>
       <Row>
+        <Col xs={2} className="align-self-center">
+          <LoveIcon className="w-2 h-2" style={{ width: 200, height: 100 }} />
+        </Col>
         <Col>
           <h2>로그인</h2>
           <Form onSubmit={handleLogin}>
@@ -47,7 +51,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-            <Button variant="primary" type="submit" style={{marginTop:10}}>
+            <Button variant="primary" type="submit" style={{ marginTop: 10 }}>
               로그인
             </Button>
           </Form>
@@ -73,13 +77,13 @@ const LoginPage: React.FC<LoginPageProps> = () => {
                 onChange={(e) => setSignupPassword(e.target.value)}
               />
             </Form.Group>
-            <Button variant="primary" type="submit" style={{marginTop:10}}>
+            <Button variant="primary" type="submit" style={{ marginTop: 10 }}>
               회원가입
             </Button>
           </Form>
         </Col>
       </Row>
-      <hr/>
+      <hr style={{marginTop:100}}/>
     </Container>
   );
 };

@@ -79,8 +79,8 @@ function Page() {
     axios
       .post("http://localhost:8080/api/addPost", newPost)
       .then((response) => {
-        // 추가된 게시글을 서버에서 받아온다면 shows 상태를 업데이트하도록 추가 작업 가능
-        console.log("게시글 추가 성공:", response.data);
+        window.alert("게시글이 정상적으로 등록되었습니다.");
+        //console.log("게시글 추가 성공:", response.data);
         // 서버로부터 받은 새로운 게시글의 ID를 가져온다
         //const postId = response.data;
         // 새로운 게시글 객체를 생성하고 목록에 추가한다
@@ -113,11 +113,14 @@ function Page() {
   }
 
   function deletePost() {
+    const confirmed = window.confirm("정말 삭제하시겠습니까?");
+    if (confirmed) {
     const postId = selectedPost?.id;
     axios
       .delete(`http://localhost:8080/api/deletePost/${postId}`)
       .then((response) => {
         //console.log("게시글 삭제 성공:", response.data);
+        window.alert("게시글이 삭제되었습니다.");
         closeModal();
         // 게시글 목록을 다시 불러와서 업데이트
         axios
@@ -130,6 +133,7 @@ function Page() {
       .catch((error) => {
         console.log("게시글 삭제 실패:", error);
       });
+    }
   }
 
   return (
@@ -213,7 +217,6 @@ function Page() {
           </Container>
         )}
       </Container>
-      <hr className="my-4" />
     </>
   );
 }
