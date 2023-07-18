@@ -2,18 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/file.css";
+import { Post } from "../types";
 
 import TabComponent from "../components/TabComponent";
 import BoardItem from "../components/BoardItem";
-import { BoardModal, AddPostModal } from "../components/BoardModal";
+import {
+  BoardModal,
+  AddPostModal,
+  EditPostModal,
+} from "../components/BoardModal";
 import { Button, Container, Row, Col, Card } from "react-bootstrap";
-
-type Post = {
-  id: string;
-  title: string;
-  author: string;
-  contents: string;
-};
 
 function Page() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -28,8 +26,9 @@ function Page() {
   const [showModal, setShowModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState<Post>();
 
-  // 게시글 추가 모달 상태 관리
-  const [showAddPostModal, setShowAddPostModal] = useState(false);
+  // 모달 상태 관리
+  const [showAddPostModal, setShowAddPostModal] = useState(false); //추가
+  const [showEditPostModal, setShowEditPostModal] = useState(false); //편집
 
   // 모달 창 열기
   const openModal = (post: Post) => {
@@ -50,6 +49,15 @@ function Page() {
     setShowAddPostModal(false);
   };
 
+  //게시글 편집 모달 창 열기
+  const openEditPostModal = () => {
+    // 게시글 수정 모달을 열고 수정할 게시글 데이터를 설정
+    setShowEditPostModal(true);
+  };
+  const closeEditPostModal = () => {
+    setShowEditPostModal(false);
+  };
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/getBoard") //api 호출
@@ -61,25 +69,57 @@ function Page() {
 
   const [myPosts, setMyPosts] = useState<Post[]>([]);
   useEffect(() => {
-    const filteredPosts = posts.filter((post) => post.author === "me");
+    const filterName = "David Thompson";
+    const filteredPosts = posts.filter((post) => post.author === filterName);
     setMyPosts(filteredPosts);
   }, [posts]);
 
   /* 게시글 업로드 */
   function addPost(newPost: Post): void {
     axios
-      .post("http://localhost:8080/api/setPost", newPost)
+      .post("http://localhost:8080/api/addPost", newPost)
       .then((response) => {
         // 추가된 게시글을 서버에서 받아온다면 shows 상태를 업데이트하도록 추가 작업 가능
         console.log("게시글 추가 성공:", response.data);
-        setPosts((prevPosts) => [...prevPosts, newPost]);
+        // 서버로부터 받은 새로운 게시글의 ID를 가져온다
+        //const postId = response.data;
+        // 새로운 게시글 객체를 생성하고 목록에 추가한다
+        console.log(response.data);
+        setPosts((prevPosts) => [...prevPosts, response.data]);
       })
       .catch((error) => {
         console.log("게시글 추가 실패:", error);
       });
-    // 추가한 게시글을 포함하여 업데이트된 게시글 목록을 설정
-    //setPosts((posts) => [...posts, newPost]);
+
     closeAddPostModal();
+  }
+  /* 게시글 수정 및 삭제 */
+  function updatePost(postId: any, updatedPost: Post) {
+    axios
+      .put(`http://localhost:8080/api/updatePost/${postId}`, updatedPost)
+      .then((response) => {
+        console.log("게시글 수정 성공:", response.data);
+        // 서버로부터 성공적으로 응답 받았을 때 클라이언트의 상태를 업데이트하거나 필요한 작업을 수행할 수 있습니다.
+        closeModal();
+      })
+      .catch((error) => {
+        console.log("게시글 수정 실패:", error);
+      });
+  }
+
+  function deletePost() {
+    const postId = selectedPost?.id;
+    console.log(postId);
+    axios
+      .delete(`http://localhost:8080/api/deletePost/${postId}`)
+      .then((response) => {
+        console.log("게시글 삭제 성공:", response.data);
+        // 서버로부터 성공적으로 응답 받았을 때 클라이언트의 상태를 업데이트하거나 필요한 작업을 수행할 수 있습니다.
+        closeModal();
+      })
+      .catch((error) => {
+        console.log("게시글 삭제 실패:", error);
+      });
   }
 
   return (
@@ -104,14 +144,20 @@ function Page() {
             </Row>
             <Row style={{ marginTop: 10 }}>
               <Col>
-                {posts.map((show) => (
-                  <BoardItem post={show} key={show.id} openModal={openModal} />
+                {posts.reverse().map((show) => (
+                  <BoardItem
+                    post={show}
+                    key={show.id ? show.id : show.title}
+                    openModal={openModal}
+                  />
                 ))}
                 {selectedPost && (
                   <BoardModal
                     post={selectedPost}
                     showModal={showModal}
                     closeModal={closeModal}
+                    openEditModal={openEditPostModal}
+                    deletePost={deletePost}
                   />
                 )}
                 {showAddPostModal && (
@@ -119,6 +165,14 @@ function Page() {
                     showModal={showAddPostModal}
                     closeModal={closeAddPostModal}
                     addPost={addPost} // addPost 함수 추가
+                  />
+                )}
+                {showEditPostModal && selectedPost && (
+                  <EditPostModal
+                    post={selectedPost}
+                    showModal={showEditPostModal}
+                    closeModal={closeEditPostModal}
+                    updatePost={updatePost}
                   />
                 )}
               </Col>
@@ -141,6 +195,8 @@ function Page() {
                   post={selectedPost}
                   showModal={showModal}
                   closeModal={closeModal}
+                  openEditModal={openEditPostModal}
+                  deletePost={deletePost}
                 />
               )}
             </Row>
