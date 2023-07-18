@@ -10,10 +10,10 @@ type AddPostModalProps = {
 };
 
 type UpdatePostModalProps = {
-  post : Post;
+  post: Post;
   showModal: boolean;
   closeModal: () => void;
-  updatePost: (postId : any, updatedPost: Post) => void;
+  updatePost: (postId: any, updatedPost: Post) => void;
 };
 
 type BoardModalProps = {
@@ -21,7 +21,7 @@ type BoardModalProps = {
   showModal: boolean;
   closeModal: () => void;
   openEditModal: () => void;
-  deletePost: (postId : any) => void;
+  deletePost: (postId: any) => void;
 };
 
 const AddPostModal: React.FC<AddPostModalProps> = ({
@@ -79,7 +79,12 @@ const AddPostModal: React.FC<AddPostModalProps> = ({
   );
 };
 
-const EditPostModal: React.FC<UpdatePostModalProps> = ({ post, showModal, closeModal, updatePost }) => {
+const EditPostModal: React.FC<UpdatePostModalProps> = ({
+  post,
+  showModal,
+  closeModal,
+  updatePost,
+}) => {
   const [updatedPost, setUpdatedPost] = useState<Post>({
     id: post.id,
     title: post.title,
@@ -87,7 +92,9 @@ const EditPostModal: React.FC<UpdatePostModalProps> = ({ post, showModal, closeM
     contents: post.contents,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setUpdatedPost((prevPost) => ({
       ...prevPost,
@@ -159,20 +166,18 @@ const BoardModal: React.FC<BoardModalProps> = ({
       </Modal.Header>
       <Modal.Body>
         <Card.Text className="mb-2 text-muted">글쓴이: {post.author}</Card.Text>
-        <Card.Text className="mb-2 text-muted">
-          편집 및 삭제는 지원되지 않습니다.
-        </Card.Text>
+        <hr />
         <Card.Text>{post.contents}</Card.Text>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={closeModal}>
-          Close
-        </Button>
         <Button variant="primary" onClick={openEditModal}>
           수정
         </Button>
         <Button variant="danger" onClick={deletePost}>
           삭제
+        </Button>
+        <Button variant="secondary" onClick={closeModal}>
+          Close
         </Button>
       </Modal.Footer>
     </Modal>

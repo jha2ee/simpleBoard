@@ -40,8 +40,8 @@ function NavBar() {
                   </NavDropdown.Item>
                   <NavDropdown.Item href="profile/qna">Q&A</NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="profile/logout">
-                    Logout
+                  <NavDropdown.Item href="/signin">
+                    Sign In
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>

@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 
 import Board from "./pages/Board";
 import Home from "./pages/Home";
-import SignUp from "./pages/SignUp";
+import Login from "./pages/SignIn";
 import Setting from "./pages/Setting";
 import QnA from "./pages/QnA";
 
@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/board" element={<Board />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<Login />} />
         <Route path="/profile/setting" element={<Setting />} />
         <Route path="/profile/qna" element={<QnA />} />
         <Route path="/" element={<Navigate to="/home" replace />} />

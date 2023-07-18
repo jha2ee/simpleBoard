@@ -84,7 +84,6 @@ function Page() {
         // 서버로부터 받은 새로운 게시글의 ID를 가져온다
         //const postId = response.data;
         // 새로운 게시글 객체를 생성하고 목록에 추가한다
-        console.log(response.data);
         setPosts((prevPosts) => [...prevPosts, response.data]);
       })
       .catch((error) => {
@@ -98,9 +97,15 @@ function Page() {
     axios
       .put(`http://localhost:8080/api/updatePost/${postId}`, updatedPost)
       .then((response) => {
-        console.log("게시글 수정 성공:", response.data);
-        // 서버로부터 성공적으로 응답 받았을 때 클라이언트의 상태를 업데이트하거나 필요한 작업을 수행할 수 있습니다.
+        //console.log("게시글 수정 성공:", response.data);
         closeModal();
+        // 게시글 목록을 다시 불러와서 업데이트
+        axios
+          .get("http://localhost:8080/api/getBoard")
+          .then((response) => {
+            setPosts(response.data);
+          })
+          .catch((error) => console.log(error));
       })
       .catch((error) => {
         console.log("게시글 수정 실패:", error);
@@ -109,13 +114,18 @@ function Page() {
 
   function deletePost() {
     const postId = selectedPost?.id;
-    console.log(postId);
     axios
       .delete(`http://localhost:8080/api/deletePost/${postId}`)
       .then((response) => {
-        console.log("게시글 삭제 성공:", response.data);
-        // 서버로부터 성공적으로 응답 받았을 때 클라이언트의 상태를 업데이트하거나 필요한 작업을 수행할 수 있습니다.
+        //console.log("게시글 삭제 성공:", response.data);
         closeModal();
+        // 게시글 목록을 다시 불러와서 업데이트
+        axios
+          .get("http://localhost:8080/api/getBoard")
+          .then((response) => {
+            setPosts(response.data);
+          })
+          .catch((error) => console.log(error));
       })
       .catch((error) => {
         console.log("게시글 삭제 실패:", error);
