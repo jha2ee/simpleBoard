@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PostService {
@@ -16,18 +17,13 @@ public class PostService {
     }
 
     /* 게시글 등록 */
-    public String create(Post post) {
+    public UUID create(Post post) {
+        post.setId(UUID.randomUUID());
         //validateDuplicatePost(post);
         postRepository.save(post);
         return post.getId();
     }
 
-    private void validateDuplicatePost(Post post) {
-        postRepository.findById(post.getId())
-                .ifPresent(m -> {
-                    throw new IllegalStateException("중복된 게시글입니다.");
-                });
-    }
 
     /* 전체 게시글 조회 */
     public List<Post> findPosts() {
@@ -37,4 +33,6 @@ public class PostService {
     public Optional<Post> findOne(String title) {
         return postRepository.findByTitle(title);
     }
+
+
 }

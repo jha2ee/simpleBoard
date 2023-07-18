@@ -13,7 +13,7 @@ public class MemoryPostRepository implements PostRepository {
 
     @Override
     public Post save(Post post) {
-        store.put(Integer.valueOf(post.getId()) + ++sequence, post);
+
         return post;
     }
 

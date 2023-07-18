@@ -1,8 +1,15 @@
 package com.study.boardweb;
+//import jakarta.persistence.GeneratedValue;
+//import jakarta.persistence.GenerationType;
+//import jakarta.persistence.Id;
+
+import java.util.UUID;
 
 public class Post {
     private static long num = 0L;
-    private String id;
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id ;
     private String title;
     private String contents;
     private String author;
@@ -16,25 +23,25 @@ public class Post {
     }
 
 
-    private Post() {
-        this.id= "";
+    public Post() {
+        this.id = UUID.randomUUID();
         this.title = "sample title" + id;
         this.contents = "sample contents" + id;
         this.author = "sample author";
     }
 
     public Post(String title, String contents, String author) {
-        this.id= "";
+        this.id = UUID.randomUUID();
         this.title = title;
         this.contents = contents;
         this.author = author;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
     public String getTitle() {
