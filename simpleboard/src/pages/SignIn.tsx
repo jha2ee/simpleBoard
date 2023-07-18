@@ -24,14 +24,19 @@ const LoginPage: React.FC<LoginPageProps> = () => {
     console.log("Signup Password:", signupPassword);
   };
 
+  const handleOnClick = () => {
+    console.log("button pressed");
+  }
+
   return (
     <Container className="mt-5" style={{ marginBottom: 50 }}>
       <Row>
-        <Col xs={2} className="align-self-center">
-          <LoveIcon className="w-2 h-2" style={{ width: 200, height: 100 }} />
-        </Col>
+
+          <LoveIcon className="w-2 h-2 align-self-center" style={{ width: 300, height: 300 }} />
+
         <Col>
           <h2>로그인</h2>
+          <br/>
           <Form onSubmit={handleLogin}>
             <Form.Group controlId="formEmail">
               <Form.Label>Email 주소</Form.Label>
@@ -51,13 +56,14 @@ const LoginPage: React.FC<LoginPageProps> = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-            <Button variant="primary" type="submit" style={{ marginTop: 10 }}>
+            <Button variant="primary" type="submit" style={{ marginTop: 20 }}>
               로그인
             </Button>
           </Form>
         </Col>
         <Col>
           <h2>회원가입</h2>
+          <br/>
           <Form onSubmit={handleSignup}>
             <Form.Group controlId="formSignupEmail">
               <Form.Label>Email 주소</Form.Label>
@@ -77,13 +83,13 @@ const LoginPage: React.FC<LoginPageProps> = () => {
                 onChange={(e) => setSignupPassword(e.target.value)}
               />
             </Form.Group>
-            <Button variant="primary" type="submit" style={{ marginTop: 10 }}>
+            <Button variant="primary" type="submit" style={{ marginTop: 20 }}>
               회원가입
             </Button>
           </Form>
         </Col>
       </Row>
-      <hr style={{marginTop:100}}/>
+      
     </Container>
   );
 };

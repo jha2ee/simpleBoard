@@ -98,7 +98,7 @@ public class PostController {
 
     @ResponseBody
     @PostMapping("/api/addPost")
-    public Post addBoard(@RequestBody Post newPost) {
+    public Post addPost(@RequestBody Post newPost) {
         try {
             // JSON 파일의 경로
             Resource resource = new ClassPathResource("data/data.json");

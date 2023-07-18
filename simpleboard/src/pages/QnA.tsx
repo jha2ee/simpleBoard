@@ -6,8 +6,9 @@ function Page() {
   return (
     <>
       
-      <div>
-        <h2>Empty page</h2>
+      <div className="text-center">
+        <h2> I'm Sorry...</h2>
+        <h3> Not prepared yet </h3>
        
       </div>
     </>
