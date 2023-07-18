@@ -6,20 +6,21 @@ function NavBar() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [expand, setExpand] = useState('lg'); // responsive web
+  const [expand, setExpand] = useState("lg"); // responsive web
 
   return (
     <>
       <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
         <Container>
           <Navbar.Brand href="/">SIMPLEBOARD</Navbar.Brand>
-          <Navbar.Toggle />
+          <Navbar.Toggle onClick={handleShow} />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
             placement="end"
             show={show}
             onHide={handleClose}
+            target={`navbar-toggle-${expand}`}
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
