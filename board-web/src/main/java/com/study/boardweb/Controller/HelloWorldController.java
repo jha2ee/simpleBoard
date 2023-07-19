@@ -1,6 +1,5 @@
 package com.study.boardweb.controller;
 
-import com.study.boardweb.Post;
 import com.study.boardweb.User;
 import org.json.*;
 import org.springframework.web.bind.annotation.*;
