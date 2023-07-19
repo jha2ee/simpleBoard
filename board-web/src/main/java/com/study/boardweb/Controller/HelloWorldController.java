@@ -1,8 +1,8 @@
 package com.study.boardweb.controller;
 
 import com.study.boardweb.Post;
+import com.study.boardweb.User;
 import org.json.*;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -20,13 +20,23 @@ public class HelloWorldController {
         // 여기에다가 샘플 데이터 넣기
         return "Hello, world!";
     }
-
     @ResponseBody
-    @GetMapping("/api/getProfile")
-    public String getBoard(@RequestParam int id) throws JSONException {
-        String result = "User" + id;
+    @PostMapping("/api/signUp")
+    public User signUp(@RequestBody User user) throws JSONException {
+        User newUser = new User(user.getName(), user.getEmail(), user.getPassword());
+        /* verify user information */
+        /* DB save in here */
+
+        return newUser;
+    }
+    @ResponseBody
+    @GetMapping("/api/getAnyUser")
+    public String getAnyUser(@RequestParam String name) throws JSONException {
+        User user = new User(name);
+        JSONObject jsonObject = new JSONObject(user);
         // 여기에다가 샘플 데이터 넣기
-        return result;
+        String result = user.toString();
+        return jsonObject.toString();
     }
 
 }
