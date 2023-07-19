@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { ReactComponent as LoveIcon } from "../assets/images/love-illustration.svg";
+import { User } from "../types";
+import axios from "axios";
 
 type LoginPageProps = {};
+const baseURL = "http://localhost:8080/api/";
 
 const LoginPage: React.FC<LoginPageProps> = () => {
+  const [profile, setProfile] = useState<User | null>(null);
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [signupNickname, setSignupNickname] = useState<string>("");
@@ -33,8 +38,22 @@ const LoginPage: React.FC<LoginPageProps> = () => {
       setShowAlert(true);
       return;
     } // 회원가입 처리 로직 구현
-    console.log("Signup Email:", signupEmail);
-    console.log("Signup Password:", signupPassword);
+    axios
+    .post(baseURL + "signUp", {
+      nickname: signupNickname,
+      email: signupEmail,
+      password: signupPassword,
+    })
+    .then((response) => {
+      console.log("Signup response:", response.data);
+      setProfile(response.data);
+      setShowAlert(false);
+    })
+    .catch((error) => {
+      console.log("Signup error:", error);
+    });
+
+    
     setSignupNickname("");
     setSignupEmail("");
     setSignupPassword("");
