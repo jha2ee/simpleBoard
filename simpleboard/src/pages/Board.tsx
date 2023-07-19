@@ -13,6 +13,8 @@ import {
 } from "../components/BoardModal";
 import { Button, Container, Row, Col, Card } from "react-bootstrap";
 
+const baseURL = "http://localhost:8080/api/";
+
 function Page() {
   const [posts, setPosts] = useState<Post[]>([]);
 
@@ -60,7 +62,7 @@ function Page() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/getBoard") //api 호출
+      .get(baseURL + "getBoard") //api 호출
       .then((response) => {
         setPosts(response.data);
       })
@@ -77,7 +79,7 @@ function Page() {
   /* 게시글 업로드 */
   function addPost(newPost: Post): void {
     axios
-      .post("http://localhost:8080/api/addPost", newPost)
+      .post(baseURL + "addPost", newPost)
       .then((response) => {
         window.alert("게시글이 정상적으로 등록되었습니다.");
         //console.log("게시글 추가 성공:", response.data);
@@ -95,13 +97,13 @@ function Page() {
   /* 게시글 수정 및 삭제 */
   function updatePost(postId: any, updatedPost: Post) {
     axios
-      .put(`http://localhost:8080/api/updatePost/${postId}`, updatedPost)
+      .put(baseURL + `updatePost/${postId}`, updatedPost)
       .then((response) => {
         //console.log("게시글 수정 성공:", response.data);
         closeModal();
         // 게시글 목록을 다시 불러와서 업데이트
         axios
-          .get("http://localhost:8080/api/getBoard")
+          .get(baseURL + "getBoard")
           .then((response) => {
             setPosts(response.data);
           })
@@ -117,14 +119,14 @@ function Page() {
     if (confirmed) {
     const postId = selectedPost?.id;
     axios
-      .delete(`http://localhost:8080/api/deletePost/${postId}`)
+      .delete(baseURL + `deletePost/${postId}`)
       .then((response) => {
         //console.log("게시글 삭제 성공:", response.data);
         window.alert("게시글이 삭제되었습니다.");
         closeModal();
         // 게시글 목록을 다시 불러와서 업데이트
         axios
-          .get("http://localhost:8080/api/getBoard")
+          .get(baseURL + "getBoard")
           .then((response) => {
             setPosts(response.data);
           })
