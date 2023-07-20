@@ -2,21 +2,14 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import profileImage from "../assets/bg1.jpg";
+import { User } from "../types";
 
-type Profile = {
-  id: any;
-  name: string;
-  //contact: string;
-  email: string;
-  password: string;
-  image?: string;
-  // 추가 프로필 정보에 대한 타입 정의
-};
+
 const defaultProfileImage = profileImage; // 기본 이미지 파일 경로
 const baseURL = "http://localhost:8080/api/";
 
 function ProfilePage() {
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState<User | null>(null);
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
@@ -26,7 +19,7 @@ function ProfilePage() {
   const who = "Sarah Jay"; // for testing
   const fetchProfileData = async () => {
     try {
-      const response = await axios.get<Profile>(
+      const response = await axios.get<User>(
         baseURL + "getAnyUser?name=" + who
       ); // 프로필 데이터를 가져오는 API 호출
       console.log(response.data);
@@ -57,7 +50,7 @@ function ProfilePage() {
           </div>
           <div className="col">
             <h5>UUID</h5>
-            <p>{profile.id}</p>
+            <p>{profile.uuid}</p>
           </div>
         </div>
         <div className="row">
