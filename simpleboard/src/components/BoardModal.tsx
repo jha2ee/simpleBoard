@@ -130,7 +130,7 @@ const EditPostModal: React.FC<UpdatePostModalProps> = ({
               type="text"
               name="author"
               value={updatedPost.author}
-              onChange={handleChange}
+              disabled
             />
           </Form.Group>
           <Form.Group controlId="formContents">
