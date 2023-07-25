@@ -117,24 +117,24 @@ function Page() {
   function deletePost() {
     const confirmed = window.confirm("정말 삭제하시겠습니까?");
     if (confirmed) {
-    const postId = selectedPost?.id;
-    axios
-      .delete(baseURL + `deletePost/${postId}`)
-      .then((response) => {
-        //console.log("게시글 삭제 성공:", response.data);
-        window.alert("게시글이 삭제되었습니다.");
-        closeModal();
-        // 게시글 목록을 다시 불러와서 업데이트
-        axios
-          .get(baseURL + "getBoard")
-          .then((response) => {
-            setPosts(response.data);
-          })
-          .catch((error) => console.log(error));
-      })
-      .catch((error) => {
-        console.log("게시글 삭제 실패:", error);
-      });
+      const postId = selectedPost?.id;
+      axios
+        .delete(baseURL + `deletePost/${postId}`)
+        .then((response) => {
+          //console.log("게시글 삭제 성공:", response.data);
+          window.alert("게시글이 삭제되었습니다.");
+          closeModal();
+          // 게시글 목록을 다시 불러와서 업데이트
+          axios
+            .get(baseURL + "getBoard")
+            .then((response) => {
+              setPosts(response.data);
+            })
+            .catch((error) => console.log(error));
+        })
+        .catch((error) => {
+          console.log("게시글 삭제 실패:", error);
+        });
     }
   }
 
@@ -213,6 +213,14 @@ function Page() {
                   closeModal={closeModal}
                   openEditModal={openEditPostModal}
                   deletePost={deletePost}
+                />
+              )}
+              {showEditPostModal && selectedPost && (
+                <EditPostModal
+                  post={selectedPost}
+                  showModal={showEditPostModal}
+                  closeModal={closeEditPostModal}
+                  updatePost={updatePost}
                 />
               )}
             </Row>
